@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quick Links</title>
+
+  <style>
+    :root {
+      --bg-dark: #050507;
+      --bg-card: rgba(0, 0, 0, 0.45);
+      --border-soft: rgba(255, 255, 255, 0.08);
+      --crimson: #b91c1c;
+      --crimson-soft: rgba(185, 28, 28, 0.25);
+      --text-main: #e5e5e5;
+      --text-muted: rgba(229, 229, 229, 0.65);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(900px circle at 15% 10%, rgba(185,28,28,0.18), transparent 55%),
+        radial-gradient(800px circle at 85% 90%, rgba(220,38,38,0.12), transparent 60%),
+        linear-gradient(180deg, #040406, #070709);
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* ===== Welcome Overlay ===== */
+    .welcome {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      transition: opacity 0.6s ease, backdrop-filter 0.6s ease;
+    }
+
+    .welcome.hide {
+      opacity: 0;
+      backdrop-filter: blur(0);
+      pointer-events: none;
+    }
+
+    .welcome-box {
+      position: relative;
+      padding: 48px 56px;
+      border-radius: 28px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      text-align: center;
+      box-shadow: 0 0 60px rgba(185, 28, 28, 0.25);
+    }
+
+    .welcome-box::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(
+        500px circle at top,
+        rgba(220,38,38,0.25),
+        transparent 55%
+      );
+      pointer-events: none;
+    }
+
+    .welcome small {
+      letter-spacing: 0.35em;
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+
+    .welcome h1 {
+      margin-top: 16px;
+      font-size: 38px;
+      font-weight: 600;
+    }
+
+    .welcome h1 span {
+      color: #ef4444;
+    }
+
+    /* ===== Main Content ===== */
+    .container {
+      width: 100%;
+      max-width: 900px;
+      padding: 32px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      border-radius: 28px;
+      padding: 32px;
+      box-shadow: 0 0 45px rgba(185, 28, 28, 0.18);
+    }
+
+    .card h2 {
+      font-size: 26px;
+      font-weight: 600;
+    }
+
+    .card p {
+      margin-top: 8px;
+      color: var(--text-muted);
+    }
+
+    .links {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .link-btn {
+      position: relative;
+      padding: 18px 20px;
+      border-radius: 20px;
+      background: rgba(0,0,0,0.4);
+      border: 1px solid var(--border-soft);
+      color: var(--text-main);
+      text-decoration: none;
+      transition: all 0.35s ease;
+      overflow: hidden;
+    }
+
+    .link-btn::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        200px circle at top left,
+        var(--crimson-soft),
+        transparent 60%
+      );
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+
+    .link-btn:hover {
+      border-color: rgba(239,68,68,0.4);
+      box-shadow: 0 0 40px rgba(220,38,38,0.22);
+      transform: translateY(-2px);
+    }
+
+    .link-btn:hover::before {
+      opacity: 1;
+    }
+
+    .link-btn span {
+      position: relative;
+      z-index: 1;
+      font-weight: 500;
+    }
+
+    footer {
+      margin-top: 32px;
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      color: rgba(229,229,229,0.5);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Welcome -->
+  <div class="welcome" id="welcome">
+    <div class="welcome-box">
+      <small>WELCOME</small>
+      <h1>Welcome <span>dhik</span></h1>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div class="container">
+    <div class="card">
+      <h2>Quick Access</h2>
+      <p>Klik tombol di bawah untuk langsung menuju link yang kamu butuhkan.</p>
+
+      <div class="links">
+        <a class="link-btn" href="https://example.com" target="_blank">
+          <span>Dashboard</span>
+        </a>
+        <a class="link-btn" href="https://drive.google.com" target="_blank">
+          <span>Google Drive</span>
+        </a>
+        <a class="link-btn" href="https://wa.me/628xxxxxxxxxx" target="_blank">
+          <span>WhatsApp</span>
+        </a>
+        <a class="link-btn" href="https://instagram.com/username" target="_blank">
+          <span>Instagram</span>
+        </a>
+      </div>
+    </div>
+
+    <footer>
+      DARK • ELEGANT • CRIMSON
+    </footer>
+  </div>
+
+  <script>
+    // Hilangkan welcome setelah 2 detik
+    setTimeout(() => {
+      document.getElementById("welcome").classList.add("hide");
+    }, 2000);
+  </script>
+
+</body>
+</html>

@@ -2,183 +2,318 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>LINK KERJA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+  <title>LINK KERJA • DHIKA</title>
 
   <style>
     :root {
-      --bg-dark: #050507;
-      --bg-card: rgba(0, 0, 0, 0.45);
-      --border-soft: rgba(255, 255, 255, 0.08);
-      --crimson: #b91c1c;
-      --crimson-soft: rgba(185, 28, 28, 0.25);
-      --text-main: #e5e5e5;
-      --text-muted: rgba(229, 229, 229, 0.65);
+      --bg-deep: #040404;
+      --bg-card: rgba(10, 10, 10, 0.7);
+      --border-gold: rgba(212, 175, 55, 0.25);
+      --border-rose: rgba(231, 161, 142, 0.3);
+      --gold: #d4af37;
+      --gold-light: #f0c75e;
+      --rosegold: #e7a18e;
+      --rosegold-soft: rgba(231, 161, 142, 0.2);
+      --text-primary: #f0eee6;
+      --text-secondary: rgba(240, 238, 230, 0.65);
+      --shadow-gold: 0 0 35px rgba(212, 175, 55, 0.2);
+      --accent-glow: rgba(240, 199, 94, 0.3);
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
     }
 
     body {
       min-height: 100vh;
-      background:
-        radial-gradient(900px circle at 15% 10%, rgba(185,28,28,0.18), transparent 55%),
-        radial-gradient(800px circle at 85% 90%, rgba(220,38,38,0.12), transparent 60%),
-        linear-gradient(180deg, #040406, #070709);
-      color: var(--text-main);
+      background: 
+        radial-gradient(ellipse at 15% 20%, rgba(212, 175, 55, 0.12) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 80%, rgba(231, 161, 142, 0.15) 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 50%, rgba(20, 20, 20, 1) 0%, #020202 100%);
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow: hidden;
+      padding: 1.5rem;
+      margin: 0;
+      position: relative;
+    }
+
+    /* Efek partikel halus di background (elemen dekoratif) */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: 
+        radial-gradient(1px 1px at 30% 25%, rgba(212, 175, 55, 0.5), transparent),
+        radial-gradient(1px 1px at 70% 60%, rgba(231, 161, 142, 0.5), transparent),
+        radial-gradient(1.5px 1.5px at 10% 80%, rgba(240, 199, 94, 0.5), transparent),
+        radial-gradient(1px 1px at 90% 15%, rgba(212, 175, 55, 0.4), transparent);
+      background-size: 200px 200px;
+      pointer-events: none;
+      z-index: 0;
     }
 
     /* ===== Welcome Overlay ===== */
     .welcome {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.45);
-      backdrop-filter: blur(10px);
+      background: rgba(2, 2, 2, 0.65);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 999;
-      transition: opacity 0.6s ease, backdrop-filter 0.6s ease;
+      transition: opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1), backdrop-filter 0.7s ease;
     }
 
     .welcome.hide {
       opacity: 0;
-      backdrop-filter: blur(0);
+      backdrop-filter: blur(0px);
+      -webkit-backdrop-filter: blur(0px);
       pointer-events: none;
     }
 
     .welcome-box {
       position: relative;
-      padding: 48px 56px;
-      border-radius: 28px;
-      background: var(--bg-card);
-      border: 1px solid var(--border-soft);
+      padding: 52px 64px;
+      border-radius: 34px;
+      background: rgba(8, 8, 8, 0.75);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 80px rgba(212, 175, 55, 0.25);
       text-align: center;
-      box-shadow: 0 0 60px rgba(185, 28, 28, 0.25);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
 
     .welcome-box::before {
       content: "";
       position: absolute;
+      inset: -1px;
+      border-radius: 35px;
+      background: linear-gradient(135deg, rgba(212,175,55,0.5), rgba(231,161,142,0.4), rgba(212,175,55,0.2));
+      z-index: -1;
+      opacity: 0.7;
+      filter: blur(4px);
+    }
+
+    .welcome-box::after {
+      content: "";
+      position: absolute;
       inset: 0;
-      border-radius: inherit;
-      background: radial-gradient(
-        500px circle at top,
-        rgba(220,38,38,0.25),
-        transparent 55%
-      );
+      border-radius: 34px;
+      background: radial-gradient(circle at 30% 30%, rgba(240,199,94,0.15), transparent 70%);
       pointer-events: none;
     }
 
     .welcome small {
-      letter-spacing: 0.35em;
-      color: var(--text-muted);
-      font-size: 12px;
+      letter-spacing: 0.5em;
+      color: #d4af37;
+      font-size: 13px;
+      font-weight: 500;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, #d4af37, #e7a18e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .welcome h1 {
-      margin-top: 16px;
-      font-size: 38px;
-      font-weight: 600;
+      margin-top: 20px;
+      font-size: 44px;
+      font-weight: 500;
+      color: #f0eee6;
+      letter-spacing: -0.5px;
     }
 
     .welcome h1 span {
-      color: #ef4444;
-    }
-
-    /* ===== Main Content ===== */
-    .container {
-      width: 100%;
-      max-width: 900px;
-      padding: 32px;
-    }
-
-    .card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-soft);
-      border-radius: 28px;
-      padding: 32px;
-      box-shadow: 0 0 45px rgba(185, 28, 28, 0.18);
-    }
-
-    .card h2 {
-      font-size: 26px;
+      background: linear-gradient(135deg, #e7a18e, #d4af37);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
       font-weight: 600;
     }
 
+    /* ===== Main Container ===== */
+    .container {
+      width: 100%;
+      max-width: 950px;
+      position: relative;
+      z-index: 2;
+      padding: 8px;
+    }
+
+    .card {
+      background: rgba(6, 6, 6, 0.7);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(212, 175, 55, 0.22);
+      border-radius: 40px;
+      padding: 38px 36px;
+      box-shadow: 0 30px 55px rgba(0,0,0,0.8), 0 0 70px rgba(212, 175, 55, 0.18);
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: -1px;
+      left: -1px;
+      right: -1px;
+      bottom: -1px;
+      border-radius: 41px;
+      background: linear-gradient(145deg, rgba(212,175,55,0.3), rgba(231,161,142,0.25), rgba(212,175,55,0.1));
+      z-index: -1;
+      opacity: 0.5;
+    }
+
+    .card h2 {
+      font-size: 28px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      color: #f0eee6;
+      background: linear-gradient(to right, #f0c75e, #e7a18e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: inline-block;
+    }
+
     .card p {
-      margin-top: 8px;
-      color: var(--text-muted);
+      margin-top: 12px;
+      color: rgba(240, 238, 230, 0.7);
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: 0.2px;
+      border-left: 2px solid #d4af37;
+      padding-left: 16px;
     }
 
     .links {
-      margin-top: 28px;
+      margin-top: 36px;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 18px;
     }
 
+    /* Link button elegan */
     .link-btn {
       position: relative;
-      padding: 18px 20px;
-      border-radius: 20px;
-      background: rgba(0,0,0,0.4);
-      border: 1px solid var(--border-soft);
-      color: var(--text-main);
+      padding: 20px 18px;
+      border-radius: 24px;
+      background: rgba(12, 12, 12, 0.6);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      color: #f0eee6;
       text-decoration: none;
-      transition: all 0.35s ease;
+      font-weight: 500;
+      font-size: 0.95rem;
+      letter-spacing: 0.4px;
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.5);
       overflow: hidden;
+      background: linear-gradient(135deg, rgba(20,20,20,0.7) 0%, rgba(8,8,8,0.8) 100%);
     }
 
+    /* Efek shimmer gold/rosegold */
     .link-btn::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: radial-gradient(
-        200px circle at top left,
-        var(--crimson-soft),
-        transparent 60%
-      );
+      background: radial-gradient(circle at 20% 30%, rgba(231, 161, 142, 0.2), transparent 65%),
+                  radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.15), transparent 70%);
       opacity: 0;
-      transition: opacity 0.35s ease;
+      transition: opacity 0.5s ease;
+      z-index: 0;
+    }
+
+    .link-btn::after {
+      content: "";
+      position: absolute;
+      top: -1px;
+      left: -1px;
+      right: -1px;
+      bottom: -1px;
+      border-radius: 25px;
+      background: linear-gradient(125deg, #d4af37, #e7a18e, #d4af37);
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      filter: blur(4px);
     }
 
     .link-btn:hover {
-      border-color: rgba(239,68,68,0.4);
-      box-shadow: 0 0 40px rgba(220,38,38,0.22);
-      transform: translateY(-2px);
+      border-color: rgba(240, 199, 94, 0.7);
+      box-shadow: 0 0 45px rgba(212, 175, 55, 0.35), 0 10px 25px rgba(0,0,0,0.7);
+      transform: translateY(-3px);
+      background: rgba(18, 18, 18, 0.8);
     }
 
     .link-btn:hover::before {
       opacity: 1;
     }
 
+    .link-btn:hover::after {
+      opacity: 0.6;
+    }
+
     .link-btn span {
       position: relative;
-      z-index: 1;
+      z-index: 2;
       font-weight: 500;
+      background: linear-gradient(to right, #f0eee6, #e7a18e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      transition: all 0.3s;
+    }
+
+    .link-btn:hover span {
+      background: linear-gradient(to right, #ffffff, #f0c75e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     footer {
-      margin-top: 32px;
+      margin-top: 38px;
       text-align: center;
       font-size: 11px;
-      letter-spacing: 0.25em;
-      color: rgba(229,229,229,0.5);
+      letter-spacing: 0.35em;
+      color: rgba(212, 175, 55, 0.55);
+      font-weight: 400;
+      text-transform: uppercase;
+      backdrop-filter: blur(4px);
+      padding: 6px;
+    }
+
+    /* Responsive */
+    @media (max-width: 550px) {
+      .welcome-box {
+        padding: 36px 28px;
+      }
+      .welcome h1 {
+        font-size: 34px;
+      }
+      .card {
+        padding: 28px 20px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- Welcome -->
+  <!-- Welcome Overlay -->
   <div class="welcome" id="welcome">
     <div class="welcome-box">
       <small>WELCOME</small>
@@ -186,7 +321,7 @@
     </div>
   </div>
 
-  <!-- Main -->
+  <!-- Main Content -->
   <div class="container">
     <div class="card">
       <h2>DATA LOGIN</h2>
@@ -217,10 +352,10 @@
         <a class="link-btn" href="https://pinjam-dana.vercel.app/" target="_blank">
           <span>PINJAM DANA</span>
         </a>
-		<a class="link-btn" href="https://convert-minera.vercel.app/" target="_blank">
+        <a class="link-btn" href="https://convert-minera.vercel.app/" target="_blank">
           <span>SELISIH MINERA</span>
         </a>
-		<a class="link-btn" href="https://script.google.com/macros/s/AKfycbyY7YC9DfMA51NPQC72QUcQLh6Sph513Vm4XO4NQQtjDs5MYbAOtPQVyJcqqOFxubq9/exec" target="_blank">
+        <a class="link-btn" href="https://script.google.com/macros/s/AKfycbyY7YC9DfMA51NPQC72QUcQLh6Sph513Vm4XO4NQQtjDs5MYbAOtPQVyJcqqOFxubq9/exec" target="_blank">
           <span>PREDIKSI</span>
         </a>
       </div>

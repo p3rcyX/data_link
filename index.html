@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
   <title>LINK KERJA • DHIKA</title>
 
+  <!-- ===== FAVICON ===== -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%23d4af37'/><stop offset='50%25' style='stop-color:%23f0c75e'/><stop offset='100%25' style='stop-color:%23e7a18e'/></linearGradient><filter id='glow'><feGaussianBlur stdDeviation='2' result='blur'/><feMerge><feMergeNode in='blur'/><feMergeNode in='SourceGraphic'/></feMerge></filter></defs><rect width='100' height='100' rx='24' fill='%23060606' stroke='url(%23grad)' stroke-width='3'/><text x='50' y='68' font-size='52' font-weight='bold' text-anchor='middle' fill='url(%23grad)' font-family='Arial, sans-serif' filter='url(%23glow)'>D</text><circle cx='78' cy='22' r='10' fill='%23d4af37' opacity='0.8'/><circle cx='78' cy='22' r='5' fill='%23f0c75e'/></svg>" />
+
+  <!-- Font Awesome 6 untuk icon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
   <style>
     :root {
       --bg-deep: #040404;
@@ -28,90 +34,126 @@
       font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
     }
 
+    /* ===== CUSTOM SCROLLBAR ===== */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.3);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #d4af37, #e7a18e);
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(180deg, #f0c75e, #e7a18e);
+    }
+
     body {
       min-height: 100vh;
-      background: 
-        radial-gradient(ellipse at 15% 20%, rgba(212, 175, 55, 0.12) 0%, transparent 55%),
-        radial-gradient(ellipse at 85% 80%, rgba(231, 161, 142, 0.15) 0%, transparent 55%),
-        radial-gradient(ellipse at 50% 50%, rgba(20, 20, 20, 1) 0%, #020202 100%);
+      background: #020202;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 1.5rem;
       margin: 0;
       position: relative;
+      overflow-x: hidden;
     }
 
-    /* Efek partikel halus di background (elemen dekoratif) */
-    body::before {
-      content: "";
+    /* ===== PARTIKEL BERGERAK (CANVAS) ===== */
+    #particlesCanvas {
       position: fixed;
       inset: 0;
-      background-image: 
-        radial-gradient(1px 1px at 30% 25%, rgba(212, 175, 55, 0.5), transparent),
-        radial-gradient(1px 1px at 70% 60%, rgba(231, 161, 142, 0.5), transparent),
-        radial-gradient(1.5px 1.5px at 10% 80%, rgba(240, 199, 94, 0.5), transparent),
-        radial-gradient(1px 1px at 90% 15%, rgba(212, 175, 55, 0.4), transparent);
-      background-size: 200px 200px;
-      pointer-events: none;
       z-index: 0;
+      pointer-events: none;
     }
 
-    /* ===== Welcome Overlay ===== */
+    /* ===== WELCOME OVERLAY ===== */
     .welcome {
       position: fixed;
       inset: 0;
-      background: rgba(2, 2, 2, 0.65);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
+      background: rgba(2, 2, 2, 0.75);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 999;
-      transition: opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1), backdrop-filter 0.7s ease;
+      transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1), visibility 0.8s;
     }
 
     .welcome.hide {
       opacity: 0;
-      backdrop-filter: blur(0px);
-      -webkit-backdrop-filter: blur(0px);
+      visibility: hidden;
       pointer-events: none;
     }
 
     .welcome-box {
       position: relative;
-      padding: 52px 64px;
-      border-radius: 34px;
-      background: rgba(8, 8, 8, 0.75);
-      border: 1px solid rgba(212, 175, 55, 0.35);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 80px rgba(212, 175, 55, 0.25);
+      padding: 55px 70px;
+      border-radius: 38px;
+      background: rgba(6, 6, 6, 0.8);
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      box-shadow: 
+        0 25px 60px rgba(0,0,0,0.9),
+        0 0 100px rgba(212, 175, 55, 0.3),
+        inset 0 1px 0 rgba(255,255,255,0.03);
       text-align: center;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      animation: welcomePulse 2s ease-in-out infinite;
+    }
+
+    @keyframes welcomePulse {
+      0%, 100% { box-shadow: 0 25px 60px rgba(0,0,0,0.9), 0 0 100px rgba(212, 175, 55, 0.3); }
+      50% { box-shadow: 0 25px 60px rgba(0,0,0,0.9), 0 0 140px rgba(212, 175, 55, 0.5); }
     }
 
     .welcome-box::before {
       content: "";
       position: absolute;
-      inset: -1px;
-      border-radius: 35px;
-      background: linear-gradient(135deg, rgba(212,175,55,0.5), rgba(231,161,142,0.4), rgba(212,175,55,0.2));
+      inset: -2px;
+      border-radius: 40px;
+      background: linear-gradient(135deg, rgba(212,175,55,0.6), rgba(231,161,142,0.5), rgba(212,175,55,0.3));
       z-index: -1;
-      opacity: 0.7;
-      filter: blur(4px);
+      opacity: 0.8;
+      filter: blur(6px);
+      animation: borderGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes borderGlow {
+      0% { opacity: 0.6; }
+      100% { opacity: 1; }
     }
 
     .welcome-box::after {
       content: "";
       position: absolute;
       inset: 0;
-      border-radius: 34px;
-      background: radial-gradient(circle at 30% 30%, rgba(240,199,94,0.15), transparent 70%);
+      border-radius: 38px;
+      background: radial-gradient(circle at 30% 30%, rgba(240,199,94,0.2), transparent 70%);
       pointer-events: none;
     }
 
+    .welcome-icon {
+      font-size: 50px;
+      margin-bottom: 15px;
+      display: block;
+      background: linear-gradient(135deg, #d4af37, #e7a18e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: iconFloat 2s ease-in-out infinite;
+    }
+
+    @keyframes iconFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
     .welcome small {
-      letter-spacing: 0.5em;
+      letter-spacing: 0.6em;
       color: #d4af37;
       font-size: 13px;
       font-weight: 500;
@@ -123,11 +165,11 @@
     }
 
     .welcome h1 {
-      margin-top: 20px;
-      font-size: 44px;
+      margin-top: 18px;
+      font-size: 48px;
       font-weight: 500;
       color: #f0eee6;
-      letter-spacing: -0.5px;
+      letter-spacing: -1px;
     }
 
     .welcome h1 span {
@@ -135,48 +177,129 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      font-weight: 600;
+      font-weight: 700;
     }
 
-    /* ===== Main Container ===== */
+    /* ===== MAIN CONTAINER ===== */
     .container {
       width: 100%;
-      max-width: 950px;
+      max-width: 980px;
       position: relative;
       z-index: 2;
       padding: 8px;
     }
 
-    .card {
-      background: rgba(6, 6, 6, 0.7);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border: 1px solid rgba(212, 175, 55, 0.22);
-      border-radius: 40px;
-      padding: 38px 36px;
-      box-shadow: 0 30px 55px rgba(0,0,0,0.8), 0 0 70px rgba(212, 175, 55, 0.18);
-      position: relative;
+    /* ===== HEADER SECTION ===== */
+    .header-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .live-clock {
+      background: rgba(10, 10, 10, 0.7);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 50px;
+      padding: 10px 22px;
+      color: #f0c75e;
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    }
+
+    .live-clock i {
+      color: #e7a18e;
+      font-size: 14px;
+    }
+
+    .toggle-view {
+      display: flex;
+      gap: 8px;
+    }
+
+    .toggle-btn {
+      background: rgba(10, 10, 10, 0.7);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      color: rgba(240, 238, 230, 0.6);
+      padding: 10px 16px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 14px;
       transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .toggle-btn.active {
+      background: rgba(212, 175, 55, 0.2);
+      color: #f0c75e;
+      border-color: rgba(212, 175, 55, 0.6);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+    }
+
+    .toggle-btn:hover {
+      border-color: rgba(212, 175, 55, 0.5);
+      color: #f0eee6;
+    }
+
+    /* ===== CARD ===== */
+    .card {
+      background: rgba(6, 6, 6, 0.55);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 44px;
+      padding: 42px 40px;
+      box-shadow: 
+        0 35px 60px rgba(0,0,0,0.85),
+        0 0 80px rgba(212, 175, 55, 0.15),
+        inset 0 1px 0 rgba(255,255,255,0.02);
+      position: relative;
+      transition: all 0.4s ease;
     }
 
     .card::before {
       content: "";
       position: absolute;
-      top: -1px;
-      left: -1px;
-      right: -1px;
-      bottom: -1px;
-      border-radius: 41px;
-      background: linear-gradient(145deg, rgba(212,175,55,0.3), rgba(231,161,142,0.25), rgba(212,175,55,0.1));
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      border-radius: 46px;
+      background: linear-gradient(145deg, rgba(212,175,55,0.25), rgba(231,161,142,0.2), rgba(212,175,55,0.08));
       z-index: -1;
       opacity: 0.5;
     }
 
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 10px;
+    }
+
+    .card-header i {
+      font-size: 30px;
+      background: linear-gradient(135deg, #f0c75e, #e7a18e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
     .card h2 {
-      font-size: 28px;
+      font-size: 30px;
       font-weight: 500;
       letter-spacing: 0.3px;
-      color: #f0eee6;
       background: linear-gradient(to right, #f0c75e, #e7a18e);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -185,53 +308,76 @@
     }
 
     .card p {
-      margin-top: 12px;
-      color: rgba(240, 238, 230, 0.7);
-      font-size: 15px;
+      margin-top: 10px;
+      color: rgba(240, 238, 230, 0.6);
+      font-size: 14px;
       font-weight: 400;
-      letter-spacing: 0.2px;
+      letter-spacing: 0.3px;
       border-left: 2px solid #d4af37;
       padding-left: 16px;
     }
 
+    /* ===== LINKS GRID ===== */
     .links {
-      margin-top: 36px;
+      margin-top: 38px;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
       gap: 18px;
     }
 
-    /* Link button elegan */
+    /* Tampilan List */
+    .links.list-view {
+      grid-template-columns: 1fr;
+    }
+
+    /* ===== LINK BUTTON ===== */
     .link-btn {
       position: relative;
-      padding: 20px 18px;
-      border-radius: 24px;
-      background: rgba(12, 12, 12, 0.6);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(212, 175, 55, 0.3);
+      padding: 22px 20px;
+      border-radius: 26px;
+      background: rgba(10, 10, 10, 0.5);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(212, 175, 55, 0.25);
       color: #f0eee6;
       text-decoration: none;
       font-weight: 500;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       letter-spacing: 0.4px;
       transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
       display: flex;
       align-items: center;
-      justify-content: center;
-      text-align: center;
-      box-shadow: 0 8px 18px rgba(0,0,0,0.5);
+      justify-content: flex-start;
+      gap: 14px;
+      text-align: left;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
       overflow: hidden;
-      background: linear-gradient(135deg, rgba(20,20,20,0.7) 0%, rgba(8,8,8,0.8) 100%);
+      cursor: pointer;
+      transform-style: preserve-3d;
+      perspective: 1000px;
     }
 
-    /* Efek shimmer gold/rosegold */
+    .link-btn .btn-icon {
+      font-size: 20px;
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(212, 175, 55, 0.1);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      flex-shrink: 0;
+      transition: all 0.4s ease;
+      color: #d4af37;
+    }
+
     .link-btn::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at 20% 30%, rgba(231, 161, 142, 0.2), transparent 65%),
-                  radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.15), transparent 70%);
+      background: radial-gradient(circle at 20% 30%, rgba(231, 161, 142, 0.15), transparent 60%),
+                  radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.1), transparent 70%);
       opacity: 0;
       transition: opacity 0.5s ease;
       z-index: 0;
@@ -240,23 +386,23 @@
     .link-btn::after {
       content: "";
       position: absolute;
-      top: -1px;
-      left: -1px;
-      right: -1px;
-      bottom: -1px;
-      border-radius: 25px;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      border-radius: 28px;
       background: linear-gradient(125deg, #d4af37, #e7a18e, #d4af37);
       z-index: -1;
       opacity: 0;
       transition: opacity 0.4s ease;
-      filter: blur(4px);
+      filter: blur(6px);
     }
 
     .link-btn:hover {
-      border-color: rgba(240, 199, 94, 0.7);
-      box-shadow: 0 0 45px rgba(212, 175, 55, 0.35), 0 10px 25px rgba(0,0,0,0.7);
-      transform: translateY(-3px);
-      background: rgba(18, 18, 18, 0.8);
+      border-color: rgba(240, 199, 94, 0.6);
+      box-shadow: 0 0 50px rgba(212, 175, 55, 0.3), 0 15px 30px rgba(0,0,0,0.7);
+      transform: translateY(-4px) rotateX(2deg);
+      background: rgba(15, 15, 15, 0.7);
     }
 
     .link-btn:hover::before {
@@ -264,7 +410,15 @@
     }
 
     .link-btn:hover::after {
-      opacity: 0.6;
+      opacity: 0.5;
+    }
+
+    .link-btn:hover .btn-icon {
+      background: rgba(240, 199, 94, 0.2);
+      border-color: rgba(240, 199, 94, 0.5);
+      color: #f0c75e;
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
+      transform: scale(1.1);
     }
 
     .link-btn span {
@@ -285,22 +439,65 @@
       background-clip: text;
     }
 
+    /* ===== BACK TO TOP ===== */
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(10, 10, 10, 0.7);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      color: #d4af37;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 99;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s ease;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+    }
+
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .back-to-top:hover {
+      background: rgba(212, 175, 55, 0.2);
+      border-color: rgba(240, 199, 94, 0.7);
+      box-shadow: 0 0 35px rgba(212, 175, 55, 0.4);
+      transform: translateY(-5px);
+    }
+
+    /* ===== FOOTER ===== */
     footer {
-      margin-top: 38px;
+      margin-top: 40px;
       text-align: center;
       font-size: 11px;
       letter-spacing: 0.35em;
-      color: rgba(212, 175, 55, 0.55);
+      color: rgba(212, 175, 55, 0.5);
       font-weight: 400;
       text-transform: uppercase;
       backdrop-filter: blur(4px);
-      padding: 6px;
+      padding: 8px;
     }
 
-    /* Responsive */
-    @media (max-width: 550px) {
+    footer i {
+      color: #e7a18e;
+      margin: 0 3px;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
       .welcome-box {
-        padding: 36px 28px;
+        padding: 40px 30px;
       }
       .welcome h1 {
         font-size: 34px;
@@ -308,84 +505,299 @@
       .card {
         padding: 28px 20px;
       }
+      .links {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 12px;
+      }
+      .link-btn {
+        padding: 16px 14px;
+        font-size: 0.82rem;
+        gap: 10px;
+      }
+      .link-btn .btn-icon {
+        width: 34px;
+        height: 34px;
+        font-size: 16px;
+        border-radius: 10px;
+      }
+      .header-section {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 0.8rem;
+      }
+      .card {
+        padding: 22px 14px;
+        border-radius: 32px;
+      }
+      .links {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- Welcome Overlay -->
+  <!-- ===== PARTIKEL CANVAS ===== -->
+  <canvas id="particlesCanvas"></canvas>
+
+  <!-- ===== WELCOME OVERLAY ===== -->
   <div class="welcome" id="welcome">
     <div class="welcome-box">
+      <i class="fa-solid fa-crown welcome-icon"></i>
       <small>WELCOME</small>
       <h1>Welcome <span>dhik</span></h1>
     </div>
   </div>
 
-  <!-- Main Content -->
+  <!-- ===== MAIN CONTENT ===== -->
   <div class="container">
+    
+    <!-- Header: Jam + Toggle View -->
+    <div class="header-section">
+      <div class="live-clock">
+        <i class="fa-regular fa-clock"></i>
+        <span id="liveClock">00:00:00</span>
+      </div>
+      <div class="toggle-view">
+        <button class="toggle-btn active" onclick="setView('grid')" id="btnGrid">
+          <i class="fa-solid fa-grid-2"></i> Grid
+        </button>
+        <button class="toggle-btn" onclick="setView('list')" id="btnList">
+          <i class="fa-solid fa-list"></i> List
+        </button>
+      </div>
+    </div>
+
+    <!-- Card Utama -->
     <div class="card">
-      <h2>DATA LOGIN</h2>
+      <div class="card-header">
+        <i class="fa-solid fa-link"></i>
+        <h2>DATA LOGIN</h2>
+      </div>
       <p>DIBAWAH INI LINK KERJA DHIKA.</p>
 
-      <div class="links">
+      <div class="links" id="linksContainer">
+
+        <!-- PRIBADI -->
         <a class="link-btn" href="https://script.google.com/macros/s/AKfycbzEPeC9lu8ebR-M-ENS7IIK_pG9shTwX_-FXg8_FUfcLguF6NxKJQoZgE_T-doOHeEiEA/exec" target="_blank">
+          <div class="btn-icon"><i class="fa-solid fa-user"></i></div>
           <span>PRIBADI</span>
         </a>
+
+        <!-- PK KERJA -->
         <a class="link-btn" href="https://script.google.com/macros/s/AKfycbxvHON6knXQHxkori6hEQdArNcLmEQwAskXIUNuR795ffB8ZemA_dwSHqF_a3KQXAUD/exec" target="_blank">
+          <div class="btn-icon"><i class="fa-solid fa-briefcase"></i></div>
           <span>PK KERJA</span>
         </a>
+
+        <!-- DOCS PRIBADI -->
         <a class="link-btn" href="https://docs.google.com/spreadsheets/d/1CsrfQgVWh9acIhZP6Rs1x7uPViTBBsrnt4Bu9fP0sSY/edit?gid=2112344855#gid=2112344855" target="_blank">
+          <div class="btn-icon"><i class="fa-solid fa-file-spreadsheet"></i></div>
           <span>DOCS PRIBADI</span>
         </a>
+
+        <!-- IZIN KELUAR -->
         <a class="link-btn" href="https://floralwhite-squid-923063.hostingersite.com/login" target="_blank">
+          <div class="btn-icon"><i class="fa-solid fa-door-open"></i></div>
           <span>IZIN KELUAR</span>
         </a>
-        <a class="link-btn" href="https://admin.hokijitusmb.com/account/login?ReturnUrl=%2F" target="_blank">
-          <span>ADMIN WD PWR</span>
+
+        <!-- BUKA SEMUA -->
+        <a class="link-btn" href="#" onclick="openAllWindows(); return false;">
+          <div class="btn-icon"><i class="fa-solid fa-rocket"></i></div>
+          <span>BUKA SEMUA (ADMIN, BK, MONTHLY, SCATTER)</span>
         </a>
-        <a class="link-btn" href="https://bk.augipt.com/hokijitu/dashboard/dashboard/about" target="_blank">
-          <span>BK</span>
-        </a>
-        <a class="link-btn" href="https://monthly.alisampan.org/upload" target="_blank">
-          <span>MONTHLY</span>
-        </a>
-        <a class="link-btn" href="https://bonussmb.com/" target="_blank">
-          <span>DASHBOARD SCATTER</span>
-        </a>
-        <a class="link-btn" href="https://pinjam-dana.vercel.app/" target="_blank">
+
+        <!-- PINJAM DANA -->
+        <a class="link-btn" href="#" onclick="openWindow('https://pinjam-dana.vercel.app/'); return false;">
+          <div class="btn-icon"><i class="fa-solid fa-coins"></i></div>
           <span>PINJAM DANA</span>
         </a>
+
+        <!-- SELISIH MINERA -->
         <a class="link-btn" href="https://convert-minera.vercel.app/" target="_blank">
+          <div class="btn-icon"><i class="fa-solid fa-calculator"></i></div>
           <span>SELISIH MINERA</span>
         </a>
+
+        <!-- PREDIKSI -->
         <a class="link-btn" href="https://script.google.com/macros/s/AKfycbyY7YC9DfMA51NPQC72QUcQLh6Sph513Vm4XO4NQQtjDs5MYbAOtPQVyJcqqOFxubq9/exec" target="_blank">
+          <div class="btn-icon"><i class="fa-solid fa-chart-line"></i></div>
           <span>PREDIKSI</span>
         </a>
-        <a class="link-btn" href="" target="">
+
+        <!-- COOMING SOON -->
+        <a class="link-btn" href="#">
+          <div class="btn-icon"><i class="fa-solid fa-hourglass-half"></i></div>
           <span>COOMING SOON</span>
         </a>
-        <a class="link-btn" href="https://validasi-coin.vercel.app/" target="_blank">
+
+        <!-- VALIDASI DEPO -->
+        <a class="link-btn" href="#" onclick="openWindow('https://validasi-coin.vercel.app/'); return false;">
+          <div class="btn-icon"><i class="fa-solid fa-circle-check"></i></div>
           <span>VALIDASI DEPO</span>
         </a>
-        <a class="link-btn" href="https://validasi-coin-wd.vercel.app/" target="_blank">
+
+        <!-- VALIDASI WD -->
+        <a class="link-btn" href="#" onclick="openWindow('https://validasi-coin-wd.vercel.app/'); return false;">
+          <div class="btn-icon"><i class="fa-solid fa-circle-check"></i></div>
           <span>VALIDASI WD</span>
         </a>
-        <a class="link-btn" href="https://report-wd-pending-six.vercel.app/" target="_blank">
+
+        <!-- REPORT WD PENDING -->
+        <a class="link-btn" href="#" onclick="openWindow('https://report-wd-pending-six.vercel.app/'); return false;">
+          <div class="btn-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
           <span>REPORT WD PENDING</span>
         </a>
+
       </div>
     </div>
 
     <footer>
-      © 2025 Hokijitu All rights reserved.
+      <i class="fa-regular fa-gem"></i> © 2025 Hokijitu <i class="fa-regular fa-gem"></i> All rights reserved.
     </footer>
   </div>
 
+  <!-- ===== BACK TO TOP BUTTON ===== -->
+  <button class="back-to-top" id="backToTop" onclick="scrollToTop()">
+    <i class="fa-solid fa-chevron-up"></i>
+  </button>
+
+  <!-- ===== SCRIPTS ===== -->
   <script>
-    // Hilangkan welcome setelah 2 detik
+    // ========== WELCOME OVERLAY ==========
     setTimeout(() => {
       document.getElementById("welcome").classList.add("hide");
     }, 2000);
+
+    // ========== LIVE CLOCK ==========
+    function updateClock() {
+      const now = new Date();
+      const timeString = now.toLocaleTimeString('id-ID', { 
+        hour: '2-digit', 
+        minute: '2-digit', 
+        second: '2-digit',
+        hour12: false 
+      });
+      document.getElementById("liveClock").textContent = timeString;
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    // ========== TOGGLE VIEW (GRID / LIST) ==========
+    function setView(view) {
+      const container = document.getElementById("linksContainer");
+      const btnGrid = document.getElementById("btnGrid");
+      const btnList = document.getElementById("btnList");
+      
+      if (view === 'list') {
+        container.classList.add("list-view");
+        btnGrid.classList.remove("active");
+        btnList.classList.add("active");
+      } else {
+        container.classList.remove("list-view");
+        btnGrid.classList.add("active");
+        btnList.classList.remove("active");
+      }
+    }
+
+    // ========== BACK TO TOP ==========
+    const backToTopBtn = document.getElementById("backToTop");
+    
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 300) {
+        backToTopBtn.classList.add("show");
+      } else {
+        backToTopBtn.classList.remove("show");
+      }
+    });
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ========== OPEN NEW WINDOW ==========
+    function openWindow(url) {
+      window.open(
+        url,
+        '_blank',
+        'location=yes,toolbar=yes,menubar=yes,scrollbars=yes'
+      );
+    }
+
+    function openAllWindows() {
+      openWindow('https://admin.hokijitusmb.com/account/login?ReturnUrl=%2F');
+      openWindow('https://bk.augipt.com/hokijitu/dashboard/dashboard/about');
+      openWindow('https://monthly.alisampan.org/upload');
+      openWindow('https://bonussmb.com/');
+	  openWindow('https://hokijitu.hokibgs.com/login.php');
+    }
+
+    // ========== PARTIKEL CANVAS ==========
+    const canvas = document.getElementById("particlesCanvas");
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+    let animationId;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    // Buat partikel
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 1.8 + 0.5;
+        this.speedX = (Math.random() - 0.5) * 0.4;
+        this.speedY = (Math.random() - 0.5) * 0.4;
+        this.opacity = Math.random() * 0.5 + 0.1;
+        // Warna acak gold/rosegold
+        const colors = ['212, 175, 55', '240, 199, 94', '231, 161, 142'];
+        this.color = colors[Math.floor(Math.random() * colors.length)];
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+          this.reset();
+        }
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${this.color}, ${this.opacity})`;
+        ctx.fill();
+      }
+    }
+
+    // Inisialisasi partikel
+    for (let i = 0; i < 70; i++) {
+      particles.push(new Particle());
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      animationId = requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
   </script>
 
 </body>

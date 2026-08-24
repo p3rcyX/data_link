@@ -1945,6 +1945,47 @@ body {
   font-size: 12px;
 }
 
+/* Welcome Panel ringkas agar shortcut lebih cepat terlihat. */
+body:not(.login-mode) .welcome-panel {
+  min-height: 132px;
+  gap: 28px;
+  padding: 20px 28px;
+}
+
+body:not(.login-mode) .welcome-panel::before {
+  width: 150px;
+  height: 150px;
+  right: 34px;
+  box-shadow: 0 0 0 24px rgba(185, 40, 46, 0.016), 0 0 0 48px rgba(185, 40, 46, 0.01);
+}
+
+body:not(.login-mode) .welcome-copy h2 {
+  margin: 8px 0 6px;
+  font-size: clamp(26px, 2.4vw, 34px);
+}
+
+body:not(.login-mode) .welcome-copy p {
+  max-width: 680px;
+  line-height: 1.55;
+}
+
+body:not(.login-mode) .welcome-actions {
+  gap: 6px;
+}
+
+body:not(.login-mode) .welcome-actions .primary-action {
+  min-height: 42px;
+}
+
+body:not(.login-mode) .japan-seal {
+  right: 18px;
+  bottom: 11px;
+}
+
+body:not(.login-mode) .japan-seal span {
+  font-size: 24px;
+}
+
 /* Data Login dibuat sebagai working surface untuk pemakaian harian. */
 body.login-mode .welcome-panel,
 body.login-mode .stats-grid {
@@ -2056,6 +2097,12 @@ body.login-mode .page-footer {
 }
 
 @media (max-width: 680px) {
+  body:not(.login-mode) .welcome-panel {
+    min-height: auto;
+    gap: 18px;
+    padding: 20px;
+  }
+
   body.login-mode .section-heading {
     align-items: flex-start;
   }

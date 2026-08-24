@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
   <title>HOKIJITU • Data Login Dashboard</title>
   <meta name="description" content="Dashboard internal HOKIJITU dengan Data Login langsung dari Google Spreadsheet.">
+  <link rel="icon" type="image/png" href="https://cdn.areabermain.club/assets/cdn/az5/2026/08/24/20260824/bd189d739086f26f1a697919c9bb7a3a/logo-hoki.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
 :root {
@@ -138,20 +139,16 @@ button {
 
 .intro-mark,
 .brand-monogram {
-  display: grid;
-  place-items: center;
-  font-family: Georgia, serif;
-  font-weight: 700;
-  color: #080808;
-  background: linear-gradient(145deg, #fff1ad, var(--gold-light) 35%, #916d16 100%);
-  box-shadow: 0 0 0 1px rgba(255, 240, 174, 0.5), 0 12px 38px rgba(212, 175, 55, 0.2);
+  display: block;
+  object-fit: contain;
+  object-position: center;
+  background: transparent;
+  filter: drop-shadow(0 8px 18px rgba(212, 175, 55, 0.28));
 }
 
 .intro-mark {
   width: 72px;
   height: 72px;
-  border-radius: 22px 5px 22px 5px;
-  font-size: 38px;
   animation: introPulse 1.15s ease-in-out infinite alternate;
 }
 
@@ -163,8 +160,8 @@ button {
 }
 
 @keyframes introPulse {
-  from { transform: translateY(0); box-shadow: 0 0 0 1px rgba(255, 240, 174, 0.4), 0 12px 30px rgba(212, 175, 55, 0.14); }
-  to { transform: translateY(-5px); box-shadow: 0 0 0 1px rgba(255, 240, 174, 0.7), 0 20px 56px rgba(212, 175, 55, 0.3); }
+  from { transform: translateY(0) scale(1); filter: drop-shadow(0 8px 18px rgba(212, 175, 55, 0.22)); }
+  to { transform: translateY(-5px) scale(1.035); filter: drop-shadow(0 15px 30px rgba(240, 199, 94, 0.42)); }
 }
 
 .sidebar {
@@ -203,8 +200,6 @@ button {
   flex: 0 0 auto;
   width: 44px;
   height: 44px;
-  border-radius: 14px 4px 14px 4px;
-  font-size: 22px;
 }
 
 .brand-block strong,
@@ -2130,14 +2125,14 @@ body.login-mode .page-footer {
 </head>
 <body>
   <main class="app-shell">
-    <div class="intro intro-visible" id="intro" aria-hidden="false"><div class="intro-mark">H</div><p>東京 • TOKYO OPERATIONS</p></div>
+    <div class="intro intro-visible" id="intro" aria-hidden="false"><img class="intro-mark" src="https://cdn.areabermain.club/assets/cdn/az5/2026/08/24/20260824/bd189d739086f26f1a697919c9bb7a3a/logo-hoki.png" alt="HOKIJITU" width="72" height="72" fetchpriority="high"><p>東京 • TOKYO OPERATIONS</p></div>
     <div class="tokyo-orb" aria-hidden="true"></div>
     <div class="city-grid" aria-hidden="true"></div>
 
     <button class="mobile-menu" id="mobileMenu" type="button" aria-label="Buka menu"><i class="fa-solid fa-bars"></i></button>
     <aside class="sidebar" id="sidebar">
       <div class="brand-block">
-        <div class="brand-monogram">H</div>
+        <img class="brand-monogram" src="https://cdn.areabermain.club/assets/cdn/az5/2026/08/24/20260824/bd189d739086f26f1a697919c9bb7a3a/logo-hoki.png" alt="HOKIJITU" width="44" height="44" decoding="async">
         <div><strong>HOKIJITU</strong><span>Tokyo Operations</span></div>
         <button class="sidebar-close" id="sidebarClose" type="button" aria-label="Tutup menu"><i class="fa-solid fa-xmark"></i></button>
       </div>

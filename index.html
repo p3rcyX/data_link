@@ -608,69 +608,6 @@ button {
   letter-spacing: 0.14em;
 }
 
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
-  margin-top: 15px;
-}
-
-.stat-card {
-  position: relative;
-  min-height: 84px;
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  padding: 15px 17px;
-  overflow: hidden;
-  border: 1px solid rgba(212, 175, 55, 0.13);
-  border-radius: 15px;
-  background: rgba(255, 255, 255, 0.028);
-}
-
-.stat-card.highlight {
-  background: linear-gradient(120deg, rgba(185, 40, 46, 0.06), rgba(212, 175, 55, 0.045));
-}
-
-.stat-icon {
-  width: 38px;
-  height: 38px;
-  display: grid;
-  place-items: center;
-  border-radius: 11px;
-  color: var(--gold-light);
-  border: 1px solid rgba(212, 175, 55, 0.16);
-  background: rgba(212, 175, 55, 0.07);
-  font-size: 13px;
-}
-
-.stat-card small,
-.stat-card strong {
-  display: block;
-}
-
-.stat-card small {
-  color: var(--muted);
-  font-size: 8px;
-}
-
-.stat-card strong {
-  margin-top: 4px;
-  color: var(--champagne);
-  font: 500 22px/1 Georgia, serif;
-}
-
-.stat-card em {
-  position: absolute;
-  top: 13px;
-  right: 13px;
-  color: rgba(240, 199, 94, 0.34);
-  font-size: 6px;
-  font-style: normal;
-  font-weight: 800;
-  letter-spacing: 0.15em;
-}
-
 .links-section {
   margin-top: 34px;
 }
@@ -1724,9 +1661,6 @@ button {
     align-items: flex-end;
   }
 
-  .stats-grid {
-    grid-template-columns: 1fr;
-  }
 }
 
 @media (max-width: 600px) {
@@ -1908,13 +1842,8 @@ body {
   font-size: 13px;
 }
 
-.welcome-actions > span,
-.stat-card small {
+.welcome-actions > span {
   font-size: 11px;
-}
-
-.stat-card em {
-  font-size: 9px;
 }
 
 .shortcut-copy small {
@@ -1987,8 +1916,7 @@ body:not(.login-mode) .japan-seal span {
 }
 
 /* Data Login dibuat sebagai working surface untuk pemakaian harian. */
-body.login-mode .welcome-panel,
-body.login-mode .stats-grid {
+body.login-mode .welcome-panel {
   display: none;
 }
 
@@ -2130,7 +2058,7 @@ body.login-mode .page-footer {
 </head>
 <body>
   <main class="app-shell">
-    <div class="intro intro-visible" id="intro" aria-hidden="false"><img class="intro-mark" src="https://cdn.areabermain.club/assets/cdn/az5/2026/08/24/20260824/bd189d739086f26f1a697919c9bb7a3a/logo-hoki.png" alt="HOKIJITU" width="72" height="72" fetchpriority="high"><p>東京 • TOKYO OPERATIONS</p></div>
+    <div class="intro intro-visible" id="intro" aria-hidden="false"><img class="intro-mark" src="https://cdn.areabermain.club/assets/cdn/az5/2026/08/24/20260824/bd189d739086f26f1a697919c9bb7a3a/logo-hoki.png" alt="HOKIJITU" width="72" height="72" fetchpriority="high"><p>東京 • MY DASHBOARD</p></div>
     <div class="tokyo-orb" aria-hidden="true"></div>
     <div class="city-grid" aria-hidden="true"></div>
 
@@ -2138,19 +2066,19 @@ body.login-mode .page-footer {
     <aside class="sidebar" id="sidebar">
       <div class="brand-block">
         <img class="brand-monogram" src="https://cdn.areabermain.club/assets/cdn/az5/2026/08/24/20260824/bd189d739086f26f1a697919c9bb7a3a/logo-hoki.png" alt="HOKIJITU" width="44" height="44" decoding="async">
-        <div><strong>HOKIJITU</strong><span>Tokyo Operations</span></div>
+        <div><strong>HOKIJITU</strong><span>６６６</span></div>
         <button class="sidebar-close" id="sidebarClose" type="button" aria-label="Tutup menu"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div class="sidebar-label">WORKSPACE</div>
       <nav class="sidebar-nav" id="sidebarNav" aria-label="Menu dashboard"></nav>
-      <div class="sidebar-status"><span class="status-dot"></span><div><strong>System Ready</strong><small>12 shortcut tersedia</small></div></div>
-      <div class="sidebar-footer"><span>東京</span><p>Tokyo Gold Edition</p></div>
+      <div class="sidebar-status"><span class="status-dot"></span><div><strong>Online</strong><small>12 shortcut tersedia</small></div></div>
+      <div class="sidebar-footer"><span>東京</span><p>percyX DASHBOARD</p></div>
     </aside>
     <button class="sidebar-overlay" id="sidebarOverlay" aria-label="Tutup menu" hidden></button>
 
     <section class="workspace">
       <header class="topbar">
-        <div class="topbar-title"><p>HOKIJITU • INTERNAL WORKSPACE</p><h1 id="pageTitle">Dashboard</h1></div>
+        <div class="topbar-title"><p>HOKIJITU • ​MY WORKSPACE​ ６６６​</p><h1 id="pageTitle">Dashboard</h1></div>
         <label class="search-box">
           <i class="fa-solid fa-magnifying-glass"></i>
           <input id="searchInput" type="search" placeholder="Cari link kerja..." aria-label="Cari link kerja">
@@ -2172,15 +2100,9 @@ body.login-mode .page-footer {
         <div class="japan-seal" aria-hidden="true"><span id="sealText">東京</span><small id="sealLabel">OPS</small></div>
       </section>
 
-      <section class="stats-grid" aria-label="Ringkasan dashboard">
-        <article class="stat-card"><span class="stat-icon"><i class="fa-solid fa-link" id="statIcon1"></i></span><div><small id="statLabel1">Total Shortcut</small><strong id="statValue1">12</strong></div><em id="statTag1">ACTIVE</em></article>
-        <article class="stat-card"><span class="stat-icon"><i class="fa-solid fa-layer-group"></i></span><div><small id="statLabel2">Kategori</small><strong id="statValue2">5</strong></div><em>ORGANIZED</em></article>
-        <article class="stat-card highlight"><span class="stat-icon"><i class="fa-solid fa-bolt" id="statIcon3"></i></span><div><small id="statLabel3">Quick Open</small><strong id="statValue3">5</strong></div><em id="statTag3">ONE CLICK</em></article>
-      </section>
-
       <section class="links-section" id="shortcutSection">
         <div class="section-heading">
-          <div><span class="section-kicker">ACCESS DIRECTORY</span><h2 id="sectionTitle">Dashboard</h2><p>Pilih satu shortcut atau gunakan tombol buka semua untuk akses bersamaan.</p></div>
+          <div><span class="section-kicker">ACCESS DIRECTORY</span><h2 id="sectionTitle">Dashboard</h2><p>Pilih dan Klik Shorcut Kerja Harian.</p></div>
           <div class="view-switch" aria-label="Pilihan tampilan">
             <button id="gridView" type="button" class="active" aria-label="Tampilan grid"><i class="fa-solid fa-grip"></i></button>
             <button id="listView" type="button" aria-label="Tampilan daftar"><i class="fa-solid fa-list"></i></button>
@@ -2213,7 +2135,7 @@ body.login-mode .page-footer {
         <div class="empty-state" id="loginEmpty" hidden><i class="fa-solid fa-magnifying-glass"></i><h3>Data tidak ditemukan</h3><p>Ubah kata pencarian atau filter kategori.</p><button type="button" id="loginReset">Reset filter</button></div>
       </section>
 
-      <footer class="page-footer"><span>© 2026 HOKIJITU</span><p>Tokyo Gold Operations Dashboard</p><span>DESIGNED FOR DHIKA</span></footer>
+      <footer class="page-footer"><span>© 2026 HOKIJITU</span><p>MY DASHBOARD</p><span>DESIGNED by percyX</span></footer>
     </section>
   </main>
 
@@ -2332,21 +2254,11 @@ body.login-mode .page-footer {
       document.querySelector('#openVisible span').textContent = 'Buka Semua ' + (activeCategory === 'dashboard' ? 'Link' : 'Kategori');
       document.getElementById('openVisible').disabled = !visibleShortcuts.length;
       document.getElementById('welcomePanel').classList.remove('login-welcome');
-      document.getElementById('welcomeEyebrow').innerHTML = '<i class="fa-solid fa-torii-gate"></i> TOKYO MIDNIGHT GOLD';
+      document.getElementById('welcomeEyebrow').innerHTML = '<i class="fa-solid fa-torii-gate"></i> MY WORKSPACE TOKYO MIDNIGHT';
       document.getElementById('welcomeTitle').innerHTML = 'Selamat datang, <em>Dhika.</em>';
-      document.getElementById('welcomeDescription').innerHTML = '<span id="liveDate">Memuat tanggal</span>. Semua akses kerja penting berada dalam satu dashboard yang cepat dan terorganisir.';
+      document.getElementById('welcomeDescription').innerHTML = '<span id="liveDate">Memuat tanggal</span>.';
       document.getElementById('sealText').textContent = '東京';
       document.getElementById('sealLabel').textContent = 'OPS';
-      document.getElementById('statIcon1').className = 'fa-solid fa-link';
-      document.getElementById('statLabel1').textContent = 'Total Shortcut';
-      document.getElementById('statValue1').textContent = '12';
-      document.getElementById('statTag1').textContent = 'ACTIVE';
-      document.getElementById('statLabel2').textContent = 'Kategori';
-      document.getElementById('statValue2').textContent = '5';
-      document.getElementById('statIcon3').className = 'fa-solid fa-bolt';
-      document.getElementById('statLabel3').textContent = 'Quick Open';
-      document.getElementById('statValue3').textContent = '5';
-      document.getElementById('statTag3').textContent = 'ONE CLICK';
     }
 
     async function loadLoginData() {
@@ -2398,18 +2310,6 @@ body.login-mode .page-footer {
       document.querySelector('#openVisible span').textContent = loginLoading ? 'Memuat Data' : 'Muat Ulang';
       document.querySelector('#openVisible i').className = 'fa-solid ' + (loginLoading ? 'fa-spinner fa-spin' : 'fa-rotate');
       document.getElementById('activeCount').textContent = loginRecords.length + ' akun tersedia';
-
-      const categoriesFound = ['Semua', ...new Set(loginRecords.map(record => record.category))];
-      document.getElementById('statIcon1').className = 'fa-solid fa-address-book';
-      document.getElementById('statLabel1').textContent = 'Total Akun';
-      document.getElementById('statValue1').textContent = String(loginRecords.length);
-      document.getElementById('statTag1').textContent = 'SYNCED';
-      document.getElementById('statLabel2').textContent = 'Kategori';
-      document.getElementById('statValue2').textContent = String(Math.max(categoriesFound.length - 1, 0));
-      document.getElementById('statIcon3').className = 'fa-solid fa-eye-slash';
-      document.getElementById('statLabel3').textContent = 'Password';
-      document.getElementById('statValue3').textContent = '••••';
-      document.getElementById('statTag3').textContent = 'PROTECTED';
 
       const badge = document.getElementById('syncBadge');
       badge.className = 'sync-badge' + (loginError ? ' error' : loginRecords.length ? ' connected' : '');

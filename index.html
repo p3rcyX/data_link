@@ -679,6 +679,7 @@ button {
   border: 1px solid rgba(212, 175, 55, 0.13);
   border-radius: 16px 5px 16px 5px;
   color: var(--text);
+  text-decoration: none;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.038), rgba(255, 255, 255, 0.018));
   text-align: left;
   box-shadow: 0 14px 35px rgba(0, 0, 0, 0.14);
@@ -1209,6 +1210,7 @@ button {
   border: 1px solid rgba(212, 175, 55, 0.18);
   border-radius: 7px;
   color: var(--gold-light);
+  text-decoration: none;
   background: rgba(212, 175, 55, 0.06);
   font-size: 10px;
 }
@@ -1222,6 +1224,32 @@ button {
   color: #ffc3b9;
   border-color: rgba(231, 161, 142, 0.2);
   background: rgba(231, 161, 142, 0.07);
+}
+
+.copyable-cell {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.copyable-cell > .table-value,
+.copyable-cell > .table-address,
+.copyable-cell > code {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.copyable-cell > .table-icon-button {
+  width: 27px;
+  height: 27px;
+  flex: 0 0 27px;
+  margin: 0;
+}
+
+.system-table-panel .action-column,
+.system-table-panel .table-actions {
+  width: 58px;
 }
 
 .login-card {
@@ -2114,7 +2142,7 @@ body.login-mode .page-footer {
 
       <section class="links-section login-section" id="loginSection" hidden>
         <div class="section-heading">
-          <div><span class="section-kicker">ACCOUNT DIRECTORY</span><h2>Data Login</h2><p>Data terbaru dari sheet <strong>DataLogin</strong>. Klik ikon salin untuk menyalin ID atau password.</p></div>
+          <div><span class="section-kicker">ACCOUNT DIRECTORY</span><h2>Data Login</h2><p>Data terbaru dari sheet <strong>DataLogin</strong>. ID, password, alamat, dan catatan dapat disalin langsung dari tabel.</p></div>
           <button type="button" class="sync-badge" id="syncBadge" title="Muat ulang Data Login"><span></span><b>Menyinkronkan…</b></button>
         </div>
         <div class="api-message" id="apiMessage">
@@ -2145,25 +2173,25 @@ body.login-mode .page-footer {
       { id: 'dashboard', label: 'Dashboard', caption: 'Semua akses', icon: 'fa-house' },
       { id: 'login', label: 'Data Login', caption: 'Akun dari Sheets', icon: 'fa-key' },
       { id: 'data', label: 'Data & Akun', caption: '3 shortcut', icon: 'fa-address-card' },
-      { id: 'operations', label: 'Operasional', caption: '2 shortcut', icon: 'fa-building-shield' },
+      { id: 'operations', label: 'Operasional', caption: '5 shortcut', icon: 'fa-building-shield' },
       { id: 'validation', label: 'Validasi', caption: '3 shortcut', icon: 'fa-shield-halved' },
-      { id: 'tools', label: 'Tools', caption: '3 shortcut', icon: 'fa-screwdriver-wrench' },
       { id: 'quick', label: 'Quick Open', caption: 'Buka sistem', icon: 'fa-bolt' }
     ];
 
+    // Ubah openMode menjadi 'tab' atau 'window' pada shortcut yang diinginkan.
     const shortcuts = [
-      { id:'pribadi', title:'Pribadi', description:'Akses data pribadi dan catatan utama.', category:'data', icon:'fa-user', href:'https://script.google.com/macros/s/AKfycbzEPeC9lu8ebR-M-ENS7IIK_pG9shTwX_-FXg8_FUfcLguF6NxKJQoZgE_T-doOHeEiEA/exec' },
-      { id:'pk-kerja', title:'PK Kerja', description:'Panel kebutuhan dan pencatatan kerja.', category:'data', icon:'fa-briefcase', href:'https://script.google.com/macros/s/AKfycbxvHON6knXQHxkori6hEQdArNcLmEQwAskXIUNuR795ffB8ZemA_dwSHqF_a3KQXAUD/exec' },
-      { id:'docs-pribadi', title:'Docs Pribadi', description:'Spreadsheet dan dokumentasi pribadi.', category:'data', icon:'fa-file-excel', href:'https://docs.google.com/spreadsheets/d/1CsrfQgVWh9acIhZP6Rs1x7uPViTBBsrnt4Bu9fP0sSY/edit?gid=2112344855#gid=2112344855' },
-      { id:'izin-keluar', title:'Izin Keluar', description:'Akses operasional untuk pengajuan izin.', category:'operations', icon:'fa-door-open', href:'https://opshokijitu.site/' },
-      { id:'report-wd', title:'Report WD Pending', description:'Pantau dan tindak lanjuti laporan pending.', category:'operations', icon:'fa-clock-rotate-left', href:'https://report-wd-pending-six.vercel.app/' },
-      { id:'validasi-depo-wd', title:'Validasi Depo / WD', description:'Spreadsheet pusat antrean validasi.', category:'validation', icon:'fa-hourglass-half', href:'https://docs.google.com/spreadsheets/d/1fNS07Y2PBKSlku5te56L1hk9f4p9RsYZW7S9mKo2h8I/edit?gid=60438600#gid=60438600' },
-      { id:'validasi-depo', title:'Validasi Depo', description:'Pemeriksaan dan validasi transaksi deposit.', category:'validation', icon:'fa-circle-check', href:'https://validasi-coin.vercel.app/' },
-      { id:'validasi-wd', title:'Validasi WD', description:'Pemeriksaan dan validasi transaksi withdraw.', category:'validation', icon:'fa-circle-check', href:'https://validasi-coin-wd.vercel.app/' },
-      { id:'pinjam-dana', title:'Pinjam Dana', description:'Tools pencatatan pinjaman dana.', category:'tools', icon:'fa-coins', href:'https://pinjam-dana.vercel.app/' },
-      { id:'selisih-minera', title:'Selisih Minera', description:'Kalkulator selisih dan konversi Minera.', category:'tools', icon:'fa-calculator', href:'https://convert-minera.vercel.app/' },
-      { id:'prediksi', title:'Prediksi', description:'Panel analisis dan data prediksi.', category:'tools', icon:'fa-chart-line', href:'https://script.google.com/macros/s/AKfycbyY7YC9DfMA51NPQC72QUcQLh6Sph513Vm4XO4NQQtjDs5MYbAOtPQVyJcqqOFxubq9/exec' },
-      { id:'buka-semua', title:'Buka Semua Sistem', description:'Admin, BK, Monthly, Bonus, dan Scatter sekali klik.', category:'quick', icon:'fa-rocket', accent:true, urls:['https://admin.hokijitusmb.com/account/login?ReturnUrl=%2F','https://bk.augipt.com/hokijitu/dashboard/dashboard/about','https://monthly.alisampan.org/upload','https://bonussmb.com/','https://hokijitu.hokibgs.com/login.php'] }
+      { id:'pribadi', title:'Pribadi', description:'Akses data pribadi dan catatan utama.', category:'data', icon:'fa-user', openMode:'tab', href:'https://script.google.com/macros/s/AKfycbzEPeC9lu8ebR-M-ENS7IIK_pG9shTwX_-FXg8_FUfcLguF6NxKJQoZgE_T-doOHeEiEA/exec' },
+      { id:'pk-kerja', title:'PK Kerja', description:'Panel kebutuhan dan pencatatan kerja.', category:'data', icon:'fa-briefcase', openMode:'tab', href:'https://script.google.com/macros/s/AKfycbxvHON6knXQHxkori6hEQdArNcLmEQwAskXIUNuR795ffB8ZemA_dwSHqF_a3KQXAUD/exec' },
+      { id:'docs-pribadi', title:'Docs Pribadi', description:'Spreadsheet dan dokumentasi pribadi.', category:'data', icon:'fa-file-excel', openMode:'tab', href:'https://docs.google.com/spreadsheets/d/1CsrfQgVWh9acIhZP6Rs1x7uPViTBBsrnt4Bu9fP0sSY/edit?gid=2112344855#gid=2112344855' },
+      { id:'izin-keluar', title:'Izin Keluar', description:'Akses operasional untuk pengajuan izin.', category:'operations', icon:'fa-door-open', openMode:'tab', href:'https://opshokijitu.site/' },
+      { id:'report-wd', title:'Report WD Pending', description:'Pantau dan tindak lanjuti laporan pending.', category:'operations', icon:'fa-clock-rotate-left', openMode:'tab', href:'https://report-wd-pending-six.vercel.app/' },
+      { id:'validasi-depo-wd', title:'Validasi Depo / WD', description:'Spreadsheet pusat antrean validasi.', category:'validation', icon:'fa-hourglass-half', openMode:'window', href:'https://docs.google.com/spreadsheets/d/1fNS07Y2PBKSlku5te56L1hk9f4p9RsYZW7S9mKo2h8I/edit?gid=60438600#gid=60438600' },
+      { id:'validasi-depo', title:'Validasi Depo', description:'Pemeriksaan dan validasi transaksi deposit.', category:'validation', icon:'fa-circle-check', openMode:'window', href:'https://validasi-coin.vercel.app/' },
+      { id:'validasi-wd', title:'Validasi WD', description:'Pemeriksaan dan validasi transaksi withdraw.', category:'validation', icon:'fa-circle-check', openMode:'window', href:'https://validasi-coin-wd.vercel.app/' },
+      { id:'pinjam-dana', title:'Pinjam Dana', description:'Tools pencatatan pinjaman dana.', category:'operations', icon:'fa-coins', openMode:'tab', href:'https://pinjam-dana.vercel.app/' },
+      { id:'selisih-minera', title:'Selisih Minera', description:'Kalkulator selisih dan konversi Minera.', category:'operations', icon:'fa-calculator', openMode:'tab', href:'https://convert-minera.vercel.app/' },
+      { id:'prediksi', title:'Prediksi', description:'Panel analisis dan data prediksi.', category:'operations', icon:'fa-chart-line', openMode:'tab', href:'https://script.google.com/macros/s/AKfycbyY7YC9DfMA51NPQC72QUcQLh6Sph513Vm4XO4NQQtjDs5MYbAOtPQVyJcqqOFxubq9/exec' },
+      { id:'buka-semua', title:'Buka Semua Sistem', description:'Admin, BK, Monthly, Bonus, dan Scatter sekali klik.', category:'quick', icon:'fa-rocket', openMode:'window', accent:true, urls:['https://admin.hokijitusmb.com/account/login?ReturnUrl=%2F','https://bk.augipt.com/hokijitu/dashboard/dashboard/about','https://monthly.alisampan.org/upload','https://bonussmb.com/','https://hokijitu.hokibgs.com/login.php'] }
     ];
 
     let activeCategory = 'login';
@@ -2189,13 +2217,36 @@ body.login-mode .page-footer {
       return String(value == null ? '' : value).replace(/[&<>"']/g, character => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#039;' })[character]);
     }
 
-    function openUrl(url) {
-      window.open(url, '_blank', 'noopener,noreferrer,location=yes,toolbar=yes,menubar=yes,scrollbars=yes');
+    function getRecordValue(record, field) {
+      if (!record) return '';
+      if (field === 'address') return record.url || record.note || '';
+      return record[field] || '';
+    }
+
+    function getRecordLink(record) {
+      const candidates = [record && record.url, record && record.note];
+      for (const candidate of candidates) {
+        const match = String(candidate || '').match(/https?:\/\/[^\s]+/i);
+        if (!match) continue;
+        try {
+          const parsed = new URL(match[0]);
+          if (parsed.protocol === 'http:' || parsed.protocol === 'https:') return parsed.href;
+        } catch (_) {}
+      }
+      return '';
+    }
+
+    function openUrl(url, openMode = 'tab') {
+      const features = openMode === 'window'
+        ? 'noopener,noreferrer,popup=yes,width=1200,height=800,location=yes,toolbar=yes,menubar=yes,scrollbars=yes,resizable=yes'
+        : 'noopener,noreferrer';
+      window.open(url, '_blank', features);
     }
 
     function openShortcut(shortcut) {
-      if (shortcut.urls) shortcut.urls.forEach(openUrl);
-      else if (shortcut.href) openUrl(shortcut.href);
+      const openMode = shortcut.openMode === 'window' ? 'window' : 'tab';
+      if (shortcut.urls) shortcut.urls.forEach(url => openUrl(url, openMode));
+      else if (shortcut.href) openUrl(shortcut.href, openMode);
     }
 
     function closeSidebar() {
@@ -2238,12 +2289,17 @@ body.login-mode .page-footer {
       emptyState.hidden = Boolean(visibleShortcuts.length);
       grid.innerHTML = visibleShortcuts.map((shortcut, index) => {
         const category = categories.find(item => item.id === shortcut.category);
-        return '<button type="button" class="shortcut-card ' + (shortcut.accent ? 'accent-card' : '') + '" data-id="' + shortcut.id + '" style="--delay:' + (index * 35) + 'ms">' +
+        const directToNewTab = Boolean(shortcut.href && shortcut.openMode !== 'window');
+        const tag = directToNewTab ? 'a' : 'button';
+        const attributes = directToNewTab
+          ? ' href="' + escapeHtml(shortcut.href) + '" target="_blank" rel="noopener noreferrer"'
+          : ' type="button" data-id="' + shortcut.id + '"';
+        return '<' + tag + ' class="shortcut-card ' + (shortcut.accent ? 'accent-card' : '') + '"' + attributes + ' style="--delay:' + (index * 35) + 'ms">' +
           '<span class="card-number">' + String(index + 1).padStart(2, '0') + '</span>' +
           '<span class="shortcut-icon"><i class="fa-solid ' + shortcut.icon + '"></i></span>' +
           '<span class="shortcut-copy"><small>' + category.label + '</small><strong>' + shortcut.title + '</strong><p>' + shortcut.description + '</p></span>' +
           '<span class="launch-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>' +
-        '</button>';
+        '</' + tag + '>';
       }).join('');
       grid.querySelectorAll('[data-id]').forEach(button => button.addEventListener('click', () => openShortcut(shortcuts.find(item => item.id === button.dataset.id))));
 
@@ -2251,8 +2307,9 @@ body.login-mode .page-footer {
       document.getElementById('pageTitle').textContent = current.label;
       document.getElementById('sectionTitle').textContent = query ? 'Hasil untuk “' + query + '”' : current.label;
       document.getElementById('activeCount').textContent = visibleShortcuts.length + ' shortcut aktif';
-      document.querySelector('#openVisible span').textContent = 'Buka Semua ' + (activeCategory === 'dashboard' ? 'Link' : 'Kategori');
-      document.getElementById('openVisible').disabled = !visibleShortcuts.length;
+      document.getElementById('openVisible').hidden = activeCategory !== 'dashboard';
+      document.querySelector('#openVisible span').textContent = 'Buka Semua Link';
+      document.getElementById('openVisible').disabled = activeCategory !== 'dashboard' || !visibleShortcuts.length;
       document.getElementById('welcomePanel').classList.remove('login-welcome');
       document.getElementById('welcomeEyebrow').innerHTML = '<i class="fa-solid fa-torii-gate"></i> MY WORKSPACE TOKYO MIDNIGHT';
       document.getElementById('welcomeTitle').innerHTML = 'Selamat datang, <em>Dhika.</em>';
@@ -2306,6 +2363,7 @@ body.login-mode .page-footer {
       document.getElementById('welcomeDescription').textContent = 'Akun dari spreadsheet ditampilkan terkelompok, dapat dicari, disalin, dan dibuka tanpa memenuhi layar.';
       document.getElementById('sealText').textContent = '鍵';
       document.getElementById('sealLabel').textContent = 'KEY';
+      document.getElementById('openVisible').hidden = false;
       document.getElementById('openVisible').disabled = false;
       document.querySelector('#openVisible span').textContent = loginLoading ? 'Memuat Data' : 'Muat Ulang';
       document.querySelector('#openVisible i').className = 'fa-solid ' + (loginLoading ? 'fa-spinner fa-spin' : 'fa-rotate');
@@ -2332,17 +2390,25 @@ body.login-mode .page-footer {
       const livechatRows = visible.filter(record => record.category === 'LiveChat');
       const systemRows = visible.filter(record => record.category !== 'BCA' && record.category !== 'LiveChat');
       const passwordText = value => value ? (passwordsVisible ? value : '••••••••••') : '—';
-      const copyButton = (record, field, label) => record[field] ? '<button type="button" class="table-icon-button" data-copy-record="' + escapeHtml(record.id) + '" data-copy-field="' + field + '" aria-label="Salin ' + label + '"><i class="fa-regular fa-copy"></i></button>' : '';
+      const copyButton = (record, field, label) => getRecordValue(record, field) ? '<button type="button" class="table-icon-button" data-copy-record="' + escapeHtml(record.id) + '" data-copy-field="' + field + '" data-copy-label="' + escapeHtml(label) + '" aria-label="Salin ' + escapeHtml(label) + '"><i class="fa-regular fa-copy"></i></button>' : '';
+      const copyCell = (record, field, label, tag, className) => {
+        const value = getRecordValue(record, field);
+        const displayValue = field === 'password' ? passwordText(value) : (value || '—');
+        return '<div class="copyable-cell"><' + tag + (className ? ' class="' + className + '"' : '') + '>' + escapeHtml(displayValue) + '</' + tag + '>' + copyButton(record, field, label) + '</div>';
+      };
 
       document.getElementById('bcaTableBody').innerHTML = bcaRows.map(record => '<tr><td><span class="table-primary">' + escapeHtml(record.username || '—') + '</span></td><td><code>' + escapeHtml(passwordText(record.password)) + '</code></td><td class="table-actions">' + copyButton(record, 'username', 'ID') + copyButton(record, 'password', 'password') + '</td></tr>').join('');
       document.getElementById('livechatTableBody').innerHTML = livechatRows.map(record => '<tr><td><span class="table-primary">' + escapeHtml(record.name) + '</span></td><td><span class="table-value">' + escapeHtml(record.username || '—') + '</span></td><td><code>' + escapeHtml(passwordText(record.password)) + '</code></td><td class="table-actions">' + copyButton(record, 'username', 'ID') + copyButton(record, 'password', 'password') + '</td></tr>').join('');
-      document.getElementById('systemTableBody').innerHTML = systemRows.map(record => '<tr><td><span class="table-primary">' + escapeHtml(record.name) + '</span><small class="table-category-label">' + escapeHtml(record.category) + '</small></td><td><span class="table-value">' + escapeHtml(record.username || '—') + '</span></td><td><code>' + escapeHtml(passwordText(record.password)) + '</code></td><td><span class="table-address">' + escapeHtml(record.url || record.note || '—') + '</span></td><td class="table-actions">' + copyButton(record, 'username', 'ID') + copyButton(record, 'password', 'password') + (record.url ? '<button type="button" class="table-icon-button launch" data-open-url="' + escapeHtml(record.url) + '" aria-label="Buka alamat"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>' : '') + '</td></tr>').join('');
+      document.getElementById('systemTableBody').innerHTML = systemRows.map(record => {
+        const directUrl = getRecordLink(record);
+        const directAction = directUrl ? '<a class="table-icon-button launch" href="' + escapeHtml(directUrl) + '" target="_blank" rel="noopener noreferrer" aria-label="Buka alamat"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>' : '';
+        return '<tr><td><span class="table-primary">' + escapeHtml(record.name) + '</span><small class="table-category-label">' + escapeHtml(record.category) + '</small></td><td>' + copyCell(record, 'username', 'ID / Login', 'span', 'table-value') + '</td><td>' + copyCell(record, 'password', 'Password', 'code', '') + '</td><td>' + copyCell(record, 'address', 'Alamat / Catatan', 'span', 'table-address') + '</td><td class="table-actions">' + directAction + '</td></tr>';
+      }).join('');
 
       loginTables.hidden = loginLoading || !visible.length;
       document.getElementById('loginToolbar').hidden = loginLoading || !loginRecords.length;
       document.getElementById('loginResultCount').textContent = visible.length + ' akun ditampilkan';
-      document.querySelectorAll('[data-copy-record]').forEach(button => button.addEventListener('click', () => { const record = loginRecords.find(item => item.id === button.dataset.copyRecord); copyValue(record[button.dataset.copyField], button.dataset.copyField === 'password' ? 'Password' : 'ID'); }));
-      document.querySelectorAll('[data-open-url]').forEach(button => button.addEventListener('click', () => openUrl(button.dataset.openUrl)));
+      document.querySelectorAll('[data-copy-record]').forEach(button => button.addEventListener('click', () => { const record = loginRecords.find(item => item.id === button.dataset.copyRecord); copyValue(getRecordValue(record, button.dataset.copyField), button.dataset.copyLabel); }));
       document.getElementById('loginEmpty').hidden = loginLoading || Boolean(loginError) || Boolean(visible.length);
     }
 
@@ -2364,7 +2430,7 @@ body.login-mode .page-footer {
     searchInput.addEventListener('input', () => { query = searchInput.value; document.getElementById('clearSearch').hidden = !query; render(); });
     document.getElementById('clearSearch').addEventListener('click', () => { searchInput.value = ''; query = ''; document.getElementById('clearSearch').hidden = true; render(); });
     document.getElementById('emptyClear').addEventListener('click', () => { searchInput.value = ''; query = ''; document.getElementById('clearSearch').hidden = true; render(); });
-    document.getElementById('openVisible').addEventListener('click', () => { if (activeCategory === 'login') loadLoginData(); else visibleShortcuts.forEach(openShortcut); });
+    document.getElementById('openVisible').addEventListener('click', () => { if (activeCategory === 'login') loadLoginData(); else if (activeCategory === 'dashboard') visibleShortcuts.forEach(openShortcut); });
     document.getElementById('gridView').addEventListener('click', () => { currentView = 'grid'; document.getElementById('gridView').classList.add('active'); document.getElementById('listView').classList.remove('active'); renderCards(); });
     document.getElementById('listView').addEventListener('click', () => { currentView = 'list'; document.getElementById('listView').classList.add('active'); document.getElementById('gridView').classList.remove('active'); renderCards(); });
     document.getElementById('syncBadge').addEventListener('click', loadLoginData);
